@@ -1,0 +1,34 @@
+<div class="container" style="width: auto">
+  <form [formGroup]="registerForm" (ngSubmit)= submitForm()>
+    <!-- 2 column grid layout with text inputs for the first and last names -->
+    <div class="row mb-4">
+      <div class="col">
+        <mdb-form-control>
+          <input mdbInput type="text" id="firstName" class="form-control" formControlName="firstName"/>
+          <label mdbLabel class="form-label" for="firstName">First name</label>
+        </mdb-form-control>
+      </div>
+      <div class="col">
+        <mdb-form-control class="form-outline">
+          <input mdbInput type="text" id="lastName" class="form-control" formControlName="lastName"/>
+          <label mdbLabel class="form-label" for="lastName">Last name</label>
+        </mdb-form-control>
+      </div>
+    </div>
+
+    <!-- Email input -->
+    <mdb-form-control class="mb-4">
+      <input mdbInput type="email" id="email" class="form-control" formControlName="email"/>
+      <label mdbLabel class="form-label" for="email">Email address</label>
+    </mdb-form-control>
+
+    <!-- Password input -->
+    <mdb-form-control class="mb-4">
+      <input mdbInput type="password" id="password" class="form-control" formControlName="password"/>
+      <label mdbLabel class="form-label" for="password">Password</label>
+    </mdb-form-control>
+
+    <!-- Submit button -->
+    <button mdbRipple type="submit" class="btn btn-primary btn-block mb-4" [disabled]="registerForm.invalid">Sign up</button>
+  </form>
+</div>
