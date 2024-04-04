@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container login-form">
   <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
     <!-- Email input -->
     <mdb-form-control class="mb-4">
@@ -17,7 +17,7 @@
 
     <!-- Register buttons -->
     <div class="text-center">
-      <p>Not a member? <a href="#!">Register</a></p>
+      <a>Not a member? <a routerLink="/register">Register</a></a>
     </div>
   </form>
 </div>

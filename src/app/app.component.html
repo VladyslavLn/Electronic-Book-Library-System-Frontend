@@ -1,12 +1,10 @@
 <nav class="navbar navbar-expand navbar-dark bg-black">
-  <div class="container">
-    <a class="navbar-brand" href="/">Library</a>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home">Library</a>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/register">Register</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/login">Login</a>
+        <a class="nav-link" *ngIf="!isUserAuthenticated()" routerLink="/login">Login</a>
+        <a class="nav-link" *ngIf="isUserAuthenticated()" (click)="logoutUser()">Logout</a>
       </li>
     </ul>
   </div>

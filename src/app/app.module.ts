@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {RegisterComponent} from './components/register/register.component';
 import {LoginComponent} from './components/login/login.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, provideHttpClient, withInterceptors} from "@angular/common/http";
 import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
 import {MdbRippleModule} from "mdb-angular-ui-kit/ripple";
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
@@ -24,6 +24,18 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from "@angular/forms";
 import { HomeComponent } from './components/home/home.component';
+import {authInterceptor} from "./service/auth.interceptor";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {
+  MatCell, MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef,
+  MatRow, MatRowDef,
+  MatTable
+} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -52,10 +64,23 @@ import { HomeComponent } from './components/home/home.component';
     MdbTooltipModule,
     MdbValidationModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTable,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCell,
+    MatColumnDef,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatHeaderRowDef,
+    MatCellDef,
+    MatPaginator
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(withInterceptors([authInterceptor])),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
