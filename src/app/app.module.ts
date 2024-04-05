@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {RegisterComponent} from './components/register/register.component';
 import {LoginComponent} from './components/login/login.component';
-import {HttpClientModule, provideHttpClient, withInterceptors} from "@angular/common/http";
+import {HttpClientModule, provideHttpClient, withFetch, withInterceptors} from "@angular/common/http";
 import {MdbFormsModule} from "mdb-angular-ui-kit/forms";
 import {MdbRippleModule} from "mdb-angular-ui-kit/ripple";
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
@@ -79,7 +79,7 @@ import {MatPaginator} from "@angular/material/paginator";
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
