@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {PageEvent} from "@angular/material/paginator";
 import {BooksService} from "../../service/books.service";
-import {Book, BookResponseWithPagination} from "../../models/books";
+import {Book} from "../../models/books";
+import {ResponseWithPagination} from "../../models/pagination";
 
 
 @Component({
@@ -12,7 +12,7 @@ import {Book, BookResponseWithPagination} from "../../models/books";
 })
 export class HomeComponent implements OnInit{
   books: Book[];
-  displayedColumns: string[] = ['#', 'Author', 'Name', 'Language'];
+  displayedColumns: string[] = ['#', 'Author', 'Title', 'Language'];
   pageEvent: PageEvent;
   length: number;
   pageSize: number;
@@ -22,8 +22,7 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.bookService.getALlBooksWithPagination(0, 10)
-      .subscribe((response: BookResponseWithPagination<Book>) => {
-      debugger;
+      .subscribe((response: ResponseWithPagination<Book>) => {
       this.books = response.content;
       this.length = response.totalElements;
       this.pageSize = response.size;
@@ -35,7 +34,7 @@ export class HomeComponent implements OnInit{
     this.pageEvent = e;
     this.length = e.length;
     this.bookService.getALlBooksWithPagination(e.pageIndex, e.pageSize)
-      .subscribe((response: BookResponseWithPagination<Book>) => {
+      .subscribe((response: ResponseWithPagination<Book>) => {
         this.books = response.content;
     })
   }

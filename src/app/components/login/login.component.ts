@@ -25,12 +25,10 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.loginForm.value)
     this.authService.login(
       this.loginForm.value
     ).subscribe(
       (response) => {
-        console.log(response)
         const token = response.access_token;
         if (token != null) {
           localStorage.setItem('token', token)

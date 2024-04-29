@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Book, BookResponseWithPagination} from "../models/books";
+import {Book} from "../models/books";
+import {ResponseWithPagination} from "../models/pagination";
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,9 @@ export class BooksService {
     return null;
   }
 
-  getALlBooksWithPagination(pageIndex: number, pageSize: number): Observable<BookResponseWithPagination<Book>> {
+  getALlBooksWithPagination(pageIndex: number, pageSize: number): Observable<ResponseWithPagination<Book>> {
     return this.http
-      .get<BookResponseWithPagination<Book>>(`http://localhost:8080/api/v1/books?page=${pageIndex}&size=${pageSize}`);
+      .get<ResponseWithPagination<Book>>(`http://localhost:8080/api/v1/books?page=${pageIndex}&size=${pageSize}`);
   }
 
   getBookById(): Observable<Book> {
@@ -25,7 +26,7 @@ export class BooksService {
   }
 
   deleteBookById() {
-
+    return null;
   }
 
 }
