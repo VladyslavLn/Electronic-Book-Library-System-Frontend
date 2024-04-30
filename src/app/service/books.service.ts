@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Book} from "../models/books";
+import {Book, BookRating, BookReview, CreateBook, CreateBookRating, CreateBookReview} from "../models/books";
 import {ResponseWithPagination} from "../models/pagination";
 
 @Injectable({
@@ -9,11 +9,11 @@ import {ResponseWithPagination} from "../models/pagination";
 })
 export class BooksService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-
-  createBook(): Observable<Book> {
-    return null;
+  createBook(model: CreateBook): Observable<Book> {
+    return this.http.post<Book>('http://localhost:8080/api/v1/books', model)
   }
 
   getALlBooksWithPagination(pageIndex: number, pageSize: number): Observable<ResponseWithPagination<Book>> {
@@ -21,12 +21,21 @@ export class BooksService {
       .get<ResponseWithPagination<Book>>(`http://localhost:8080/api/v1/books?page=${pageIndex}&size=${pageSize}`);
   }
 
-  getBookById(): Observable<Book> {
-    return null;
+  getBookById(id: number): Observable<Book> {
+    return this.http.get<Book>(`http://localhost:8080/api/v1/books/${id}`);
   }
 
-  deleteBookById() {
-    return null;
+  deleteBookById(id: number) {
+    this.http.delete(`http://localhost:8080/api/v1/books/${id}`);
   }
 
+  addReviewToBook(bookReview: CreateBookReview, id: number): Observable<BookReview> {
+    console.log(bookReview);
+    return this.http.post<BookReview>(`http://localhost:8080/api/v1/books/${id}/review`, bookReview )
+  }
+
+  addRatingToBook(bookRating: CreateBookRating, id: number): Observable<BookRating> {
+    console.log(bookRating)
+    return this.http.post<BookRating>(`http://localhost:8080/api/v1/books/${id}/rating`, bookRating)
+  }
 }

@@ -22,7 +22,7 @@ import {MdbTabsModule} from 'mdb-angular-ui-kit/tabs';
 import {MdbTooltipModule} from 'mdb-angular-ui-kit/tooltip';
 import {MdbValidationModule} from 'mdb-angular-ui-kit/validation';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HomeComponent} from './components/home/home.component';
 import {authInterceptor} from "./service/auth.interceptor";
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
@@ -40,13 +40,15 @@ import {
 } from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {CanActivateRoute} from "./guards/auth.guard";
+import { BookComponent } from './components/book/book.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ import {CanActivateRoute} from "./guards/auth.guard";
     MatRowDef,
     MatHeaderRowDef,
     MatCellDef,
-    MatPaginator
+    MatPaginator,
+    FormsModule
   ],
   providers: [
     CanActivateRoute,

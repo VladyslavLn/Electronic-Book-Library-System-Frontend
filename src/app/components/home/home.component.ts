@@ -12,7 +12,7 @@ import {ResponseWithPagination} from "../../models/pagination";
 })
 export class HomeComponent implements OnInit{
   books: Book[];
-  displayedColumns: string[] = ['#', 'Author', 'Title', 'Language'];
+  displayedColumns: string[] = ['#', 'Author', 'Title', 'Language', 'Rating'];
   pageEvent: PageEvent;
   length: number;
   pageSize: number;

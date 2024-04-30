@@ -1,0 +1,66 @@
+<div class="book-details card" *ngIf="book">
+  <div class="card-body">
+    <div class="book-top-section">
+      <img class="card-img-right"
+           src="https://via.placeholder.com/150"
+           alt="Mock">
+      <div>
+        <h2 class="book-title card-title">{{ book.title }}</h2>
+        <div class="book-info">
+          <p><strong>Author:</strong> {{ book.author }}</p>
+          <p><strong>Language:</strong> {{ book.language }}</p>
+          <div class="book-rating">
+            <p><strong>Average Rating:</strong>
+              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                <i class="fa-star" [ngClass]="star <= book.averageRating ? 'fas' : 'far'"></i>
+              </ng-container>
+              <span *ngIf="book.averageRating > 0">{{ book.averageRating }}</span>
+              <span *ngIf="!book.averageRating">No ratings yet!</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ratings-reviews-section">
+      <h4>Ratings & Reviews</h4>
+      <div class="reviews-section">
+        <h1>Reviews:</h1>
+        <div *ngFor="let review of book.reviews">
+          <p>{{ review.reviewContent }}</p>
+          <p class="review-author">{{ review.user.firstName }} {{ review.user.lastName }}</p>
+        </div>
+      </div>
+
+      <div class="ratings-section">
+        <h1>Ratings</h1>
+        <div *ngFor="let rating of book.ratings">
+          <div class="user-rating">
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <i class="fas fa-star" [ngClass]="star <= rating.ratingValue ? 's' : 'r'"></i>
+            </ng-container>
+            <p class="rating-author">{{ rating.user.firstName }} {{ rating.user.lastName }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="add-review-section">
+        <h4>Add a Review</h4>
+        <form (ngSubmit)="addReview(review.value); review.value=''">
+          <textarea #review name="review" placeholder="Your review"></textarea>
+          <button type="submit">Submit Review</button>
+        </form>
+      </div>
+
+      <div class="add-rating-section">
+        <h4>Add a Rating</h4>
+        <form (ngSubmit)="addRating(+rating.value); rating.value=''">
+          <select #rating name="rating">
+            <option *ngFor="let star of [1, 2, 3, 4, 5]" [value]="star">{{ star }}</option>
+          </select>
+          <button type="submit">Submit Rating</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

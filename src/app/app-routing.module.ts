@@ -4,6 +4,7 @@ import {RegisterComponent} from "./components/register/register.component";
 import {LoginComponent} from "./components/login/login.component";
 import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./guards/auth.guard";
+import {BookComponent} from "./components/book/book.component";
 
 const routeConfig: Routes = [
   {
@@ -27,6 +28,12 @@ const routeConfig: Routes = [
     component: RegisterComponent,
     title: 'Register',
   },
+  {
+    path: 'book/:id',
+    component: BookComponent,
+    title: 'Book',
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
