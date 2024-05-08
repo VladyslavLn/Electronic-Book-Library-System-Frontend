@@ -41,6 +41,9 @@ import {
 import {MatPaginator} from "@angular/material/paginator";
 import {CanActivateRoute} from "./guards/auth.guard";
 import { BookComponent } from './components/book/book.component';
+import { CreateBookComponent } from './components/create-book/create-book.component';
+import {MatButton} from "@angular/material/button";
+import {MatDialogTitle} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -48,7 +51,8 @@ import { BookComponent } from './components/book/book.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    BookComponent
+    BookComponent,
+    CreateBookComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +86,9 @@ import { BookComponent } from './components/book/book.component';
     MatHeaderRowDef,
     MatCellDef,
     MatPaginator,
-    FormsModule
+    FormsModule,
+    MatButton,
+    MatDialogTitle
   ],
   providers: [
     CanActivateRoute,

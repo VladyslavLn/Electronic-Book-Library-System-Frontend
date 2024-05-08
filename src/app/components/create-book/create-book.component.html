@@ -1,0 +1,39 @@
+<div class="container create-book-form">
+  <div class="form-container mt-5 mb-5">
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <!-- Book Author -->
+      <mdb-form-control class="mb-4">
+        <input mdbInput type="text" id="author" class="form-control" formControlName="author" placeholder="Author"/>
+      </mdb-form-control>
+
+      <!-- Book Title -->
+      <mdb-form-control class="mb-4">
+        <input mdbInput type="text" id="title" class="form-control" formControlName="title" placeholder="Title"/>
+      </mdb-form-control>
+
+      <!-- Book Language -->
+      <mdb-form-control class="mb-4">
+        <input mdbInput type="text" id="language" class="form-control" formControlName="language"
+               placeholder="Language"/>
+      </mdb-form-control>
+
+      <!-- Book File -->
+      <mdb-form-control class="mb-4">
+        <input mdbInput type="file" id="file" #fileInput (change)="handleFileInput(fileInput)"
+               placeholder="Upload Book File" accept=".pdf, .epub, .fb2"/>
+      </mdb-form-control>
+
+      <!-- Submit Button -->
+      <button mdbRipple type="submit" class="btn btn-primary btn-block mb-4" [disabled]="bookForm.invalid">Create Book
+      </button>
+    </form>
+  </div>
+</div>
+
+<ng-template #bookCreatedDialog>
+  <div style="text-align: center; padding: 20px;">
+    <h2 style="margin-bottom: 15px; color: darkgreen;">Book Created</h2>
+    <p style="margin-bottom: 30px;">Your book has been successfully created!</p>
+    <button mat-raised-button color="primary" (click)="dialogRef.close()">Ok</button>
+  </div>
+</ng-template>

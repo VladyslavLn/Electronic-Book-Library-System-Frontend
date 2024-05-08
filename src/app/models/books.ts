@@ -9,6 +9,7 @@ export interface Book {
   readonly reviews: BookReview[],
   readonly ratings: BookRating[],
   readonly averageRating: number
+  readonly cover: Array<string>
 }
 
 export interface CreateBook {

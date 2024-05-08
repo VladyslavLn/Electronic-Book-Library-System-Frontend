@@ -10,6 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class BookComponent implements OnInit {
   book: Book;
+  bookCover: string | undefined;
 
   constructor(
     private bookService: BooksService,
@@ -25,7 +26,7 @@ export class BookComponent implements OnInit {
     this.bookService.getBookById(bookId).subscribe(
       value => {
         this.book = value;
-        console.log(value);
+        this.bookCover = this.getBookCover()
       }
     );
   }
@@ -46,6 +47,13 @@ export class BookComponent implements OnInit {
     this.bookService.addRatingToBook(bookRating, this.book.id).subscribe(() => {
       this.loadBookData();
     });
+  }
+
+  getBookCover(): string | undefined {
+    if (this.book.cover) {
+      return 'data:image/jpg;base64,' + this.book.cover
+    }
+    return 'https://via.placeholder.com/150';
   }
 
 }

@@ -2,8 +2,9 @@
   <div class="card-body">
     <div class="book-top-section">
       <img class="card-img-right"
-           src="https://via.placeholder.com/150"
-           alt="Mock">
+           [src]="bookCover"
+           alt="Book cover"
+           style="width: 150px; height: 150px;">
       <div>
         <h2 class="book-title card-title">{{ book.title }}</h2>
         <div class="book-info">
@@ -23,7 +24,6 @@
     </div>
 
     <div class="ratings-reviews-section">
-      <h4>Ratings & Reviews</h4>
       <div class="reviews-section">
         <h1>Reviews:</h1>
         <div *ngFor="let review of book.reviews">
@@ -45,7 +45,6 @@
       </div>
 
       <div class="add-review-section">
-        <h4>Add a Review</h4>
         <form (ngSubmit)="addReview(review.value); review.value=''">
           <textarea #review name="review" placeholder="Your review"></textarea>
           <button type="submit">Submit Review</button>
@@ -53,7 +52,6 @@
       </div>
 
       <div class="add-rating-section">
-        <h4>Add a Rating</h4>
         <form (ngSubmit)="addRating(+rating.value); rating.value=''">
           <select #rating name="rating">
             <option *ngFor="let star of [1, 2, 3, 4, 5]" [value]="star">{{ star }}</option>
