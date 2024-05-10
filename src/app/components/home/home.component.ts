@@ -11,8 +11,7 @@ import {ResponseWithPagination} from "../../models/pagination";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit{
-  books: Book[];
-  displayedColumns: string[] = ['#', 'Author', 'Title', 'Language', 'Rating'];
+  books: Book[] = [];
   pageEvent: PageEvent;
   length: number;
   pageSize: number;
@@ -21,7 +20,7 @@ export class HomeComponent implements OnInit{
   constructor(private bookService: BooksService) {}
 
   ngOnInit(): void {
-    this.bookService.getALlBooksWithPagination(0, 10)
+    this.bookService.getALlBooksWithPagination(0, 16)
       .subscribe((response: ResponseWithPagination<Book>) => {
       this.books = response.content;
       this.length = response.totalElements;
@@ -37,5 +36,12 @@ export class HomeComponent implements OnInit{
       .subscribe((response: ResponseWithPagination<Book>) => {
         this.books = response.content;
     })
+  }
+
+  getBookCover(book: Book): string {
+    if (book.cover) {
+      return 'data:image/jpg;base64,' + book.cover;
+    }
+    return 'https://via.placeholder.com/150';
   }
 }

@@ -1,44 +1,33 @@
-<div>
-  <table mat-table [dataSource]="books" class="mat-elevation-z8">
-    <ng-container matColumnDef="#">
-      <th mat-header-cell *matHeaderCellDef>#</th>
-      <td mat-cell *matCellDef="let book"> {{ book.id }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="Author">
-      <th mat-header-cell *matHeaderCellDef>Author</th>
-      <td mat-cell *matCellDef="let book"> {{ book.author }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="Title">
-      <th mat-header-cell *matHeaderCellDef>Title</th>
-      <td mat-cell *matCellDef="let book">
-        <a [routerLink]="['/book', book.id]">{{ book.title }}</a>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Rating">
-      <th mat-header-cell *matHeaderCellDef>Rating</th>
-      <td mat-cell *matCellDef="let book">
-        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-          <i class="fa-star" [ngClass]="star <= book.averageRating ? 'fas' : 'far'"></i>
-        </ng-container>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Language">
-      <th mat-header-cell *matHeaderCellDef>Language</th>
-      <td mat-cell *matCellDef="let book"> {{ book.language }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  <mat-paginator style="bottom: 0; right: 0; position: fixed"
-                 [length]="length"
-                 (page)="handlePageEvent($event)"
-                 [pageSize]="pageSize"
-                 [pageSizeOptions]="[5, 10, 25, 100]"
-                 aria-label="Select page">
-  </mat-paginator>
+<div class="book-list" *ngIf="books.length; else noBooks">
+  <mat-card class="book-card mat-elevation-z8" *ngFor="let book of books" [routerLink]="['/book', book.id]">
+    <div class="card-content">
+      <img mat-card-image class="book-card-img" [src]="getBookCover(book)" alt="Book cover">
+      <div>
+        <mat-card-header>
+          <mat-card-title>{{ book.title }}</mat-card-title>
+          <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Language:</strong> {{ book.language }}</p>
+          <p><strong>Rating:</strong>
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <i class="fa-star" [ngClass]="star <= book.averageRating ? 'fas' : 'far'"></i>
+            </ng-container>
+          </p>
+        </mat-card-content>
+      </div>
+    </div>
+  </mat-card>
 </div>
+
+<ng-template #noBooks>
+  <p>No books available</p>
+</ng-template>
+
+<mat-paginator style="bottom: 0; right: 0; position: fixed"
+               [length]="length"
+               (page)="handlePageEvent($event)"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="[5, 10, 25, 100]"
+               aria-label="Select page">
+</mat-paginator>

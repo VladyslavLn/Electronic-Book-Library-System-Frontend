@@ -4,3 +4,8 @@ export interface User {
   readonly lastName: string,
   readonly email: string
 }
+
+export interface UpdateUser {
+  readonly firstName: string,
+  readonly lastName: string,
+}

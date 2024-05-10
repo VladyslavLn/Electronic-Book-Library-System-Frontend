@@ -6,6 +6,9 @@
         <a class="nav-link" *ngIf="isUserAuthenticated()" routerLink="/book/create">Create book</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" *ngIf="isUserAuthenticated()" routerLink="/users">User list</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" *ngIf="!isUserAuthenticated()" routerLink="/login">Login</a>
         <a class="nav-link" *ngIf="isUserAuthenticated()" (click)="logoutUser()">Logout</a>
       </li>

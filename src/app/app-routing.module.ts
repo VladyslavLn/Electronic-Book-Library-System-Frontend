@@ -6,6 +6,8 @@ import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {BookComponent} from "./components/book/book.component";
 import {CreateBookComponent} from "./components/create-book/create-book.component";
+import {UserListComponent} from "./components/user-list/user-list.component";
+import {UserComponent} from "./components/user/user.component";
 
 const routeConfig: Routes = [
   {
@@ -39,6 +41,18 @@ const routeConfig: Routes = [
     path: 'book/:id',
     component: BookComponent,
     title: 'Book',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'users',
+    component: UserListComponent,
+    title: 'Users',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'user/:id',
+    component: UserComponent,
+    title: 'User info',
     canActivate: [AuthGuard]
   }
 ];

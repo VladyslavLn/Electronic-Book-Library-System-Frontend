@@ -44,6 +44,16 @@ import { BookComponent } from './components/book/book.component';
 import { CreateBookComponent } from './components/create-book/create-book.component';
 import {MatButton} from "@angular/material/button";
 import {MatDialogTitle} from "@angular/material/dialog";
+import { UserListComponent } from './components/user-list/user-list.component';
+import {MatIcon} from "@angular/material/icon";
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader, MatCardImage,
+  MatCardSubtitle,
+  MatCardTitle
+} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -52,7 +62,8 @@ import {MatDialogTitle} from "@angular/material/dialog";
     LoginComponent,
     HomeComponent,
     BookComponent,
-    CreateBookComponent
+    CreateBookComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +99,15 @@ import {MatDialogTitle} from "@angular/material/dialog";
     MatPaginator,
     FormsModule,
     MatButton,
-    MatDialogTitle
+    MatDialogTitle,
+    MatCardActions,
+    MatCardSubtitle,
+    MatCardTitle,
+    MatCardHeader,
+    MatCard,
+    MatCardContent,
+    MatIcon,
+    MatCardImage
   ],
   providers: [
     CanActivateRoute,
