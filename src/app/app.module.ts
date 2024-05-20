@@ -54,6 +54,11 @@ import {
   MatCardSubtitle,
   MatCardTitle
 } from "@angular/material/card";
+import { UserComponent } from './components/user/user.component';
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatList, MatListItem} from "@angular/material/list";
+import {MatLine} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -63,7 +68,8 @@ import {
     HomeComponent,
     BookComponent,
     CreateBookComponent,
-    UserListComponent
+    UserListComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +113,13 @@ import {
     MatCard,
     MatCardContent,
     MatIcon,
-    MatCardImage
+    MatCardImage,
+    MatLabel,
+    MatFormField,
+    MatInput,
+    MatList,
+    MatListItem,
+    MatLine
   ],
   providers: [
     CanActivateRoute,

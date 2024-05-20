@@ -1,0 +1,25 @@
+<div class="container">
+  <mat-card class="center-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h2>{{ user?.email }}</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <h3>User ID: <span>{{ user?.id }}</span></h3>
+        <h3>First Name:
+          <span *ngIf="!editing">{{ user?.firstName }}</span>
+          <input *ngIf="editing" type="text" [(ngModel)]="user.firstName">
+        </h3>
+        <h3>Last Name:
+          <span *ngIf="!editing">{{ user?.lastName }}</span>
+          <input *ngIf="editing" type="text" [(ngModel)]="user.lastName">
+        </h3>
+      </mat-list>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button color="primary" (click)="toggleEdit()">{{ editing ? 'Save' : 'Edit' }}</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
