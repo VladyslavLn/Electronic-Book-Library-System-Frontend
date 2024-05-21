@@ -1,64 +1,63 @@
-<div class="book-details card" *ngIf="book">
-  <div class="card-body">
-    <div class="book-top-section">
-      <img class="card-img-right"
-           [src]="bookCover"
-           alt="Book cover"
-           style="width: 150px; height: 150px;">
-      <div>
-        <h2 class="book-title card-title">{{ book.title }}</h2>
-        <div class="book-info">
-          <p><strong>Author:</strong> {{ book.author }}</p>
-          <p><strong>Language:</strong> {{ book.language }}</p>
-          <div class="book-rating">
-            <p><strong>Average Rating:</strong>
-              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-                <i class="fa-star" [ngClass]="star <= book.averageRating ? 'fas' : 'far'"></i>
-              </ng-container>
-              <span *ngIf="book.averageRating > 0">{{ book.averageRating }}</span>
-              <span *ngIf="!book.averageRating">No ratings yet!</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+<mat-card *ngIf="book" class="book-card">
+  <mat-card-header>
+    <mat-card-title>{{ book.title }}</mat-card-title>
+    <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+    <button (click)="downloadBookFile()" mat-raised-button color="primary" class="downloadButton">Download Book</button>
+  </mat-card-header>
 
-    <div class="ratings-reviews-section">
-      <div class="reviews-section">
-        <h1>Reviews:</h1>
-        <div *ngFor="let review of book.reviews">
-          <p>{{ review.reviewContent }}</p>
-          <p class="review-author">{{ review.user.firstName }} {{ review.user.lastName }}</p>
-        </div>
-      </div>
+  <div class="card-content">
+    <img class="image" mat-card-image [src]="bookCover" alt="Book cover">
+    <div class="info">
+      <mat-card-content>
+        <p><strong>Language:</strong> {{ book.language }}</p>
+        <mat-divider></mat-divider>
 
-      <div class="ratings-section">
-        <h1>Ratings</h1>
+        <p><strong>Average Rating:</strong></p>
+        <div class="user-rating">
+          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+            <i class="fa-star" [ngClass]="star <= book.averageRating ? 'fas' : 'far'"></i>
+          </ng-container>
+          <p>{{ book.averageRating }} Stars</p>
+        </div>
+        <mat-divider></mat-divider>
+
+        <p><strong>Reviews:</strong></p>
+        <mat-list *ngFor="let review of book.reviews">
+          <mat-list-item>User: {{ review.user.firstName }} {{ review.user.lastName }}</mat-list-item>
+          <mat-list-item>Review: {{ review.reviewContent }}</mat-list-item>
+        </mat-list>
+
+        <mat-divider></mat-divider>
+
+        <p><strong>Ratings</strong></p>
         <div *ngFor="let rating of book.ratings">
           <div class="user-rating">
             <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
               <i class="fa-star" [ngClass]="star <= rating.ratingValue ? 'fas' : 'far'"></i>
             </ng-container>
-            <p class="rating-author">{{ rating.user.firstName }} {{ rating.user.lastName }}</p>
+            <p class="rating-author">User: {{ rating.user.firstName }} {{ rating.user.lastName }}</p>
           </div>
         </div>
-      </div>
 
-      <div class="add-review-section">
-        <form (ngSubmit)="addReview(review.value); review.value=''">
-          <textarea #review name="review" placeholder="Your review"></textarea>
-          <button type="submit">Submit Review</button>
-        </form>
-      </div>
-
-      <div class="add-rating-section">
-        <form (ngSubmit)="addRating(+rating.value); rating.value=''">
-          <select #rating name="rating">
-            <option *ngFor="let star of [1, 2, 3, 4, 5]" [value]="star">{{ star }}</option>
-          </select>
-          <button type="submit">Submit Rating</button>
-        </form>
-      </div>
+      </mat-card-content>
     </div>
   </div>
-</div>
+
+  <div class="card-actions">
+    <form class="review-form" #reviewForm="ngForm">
+      <mat-form-field class="review-field">
+        <textarea [(ngModel)]="reviewValue" name="review" matInput placeholder="Your review"></textarea>
+      </mat-form-field>
+      <mat-form-field class="rating-field">
+        <mat-select [(ngModel)]="ratingValue" name="rating" placeholder="Your rating">
+          <mat-option *ngFor="let star of [1, 2, 3, 4, 5] let i = index" [value]="star">
+            <ng-container *ngFor="let s of [].constructor(i+1)">
+              &#9733;
+            </ng-container>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button (click)="addReviewAndRating(reviewValue, ratingValue)">Submit Review and Rating</button>
+    </form>
+  </div>
+</mat-card>

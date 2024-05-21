@@ -45,4 +45,8 @@ export class BooksService {
     console.log(bookRating)
     return this.http.post<BookRating>(`http://localhost:8080/api/v1/books/${id}/rating`, bookRating)
   }
+
+  downloadBookFile(bookId: number) {
+    return this.http.get(`http://localhost:8080/api/v1/books/${bookId}/file/download`, { observe: 'response', responseType: 'blob' });
+  }
 }

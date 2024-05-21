@@ -1,18 +1,18 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {JwtHelperService} from "@auth0/angular-jwt";
-import {UserJwt} from "./models/user";
+import {UserService} from "./service/user.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'library-frontend';
-  helper = new JwtHelperService();
+  userId: number;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private userService: UserService,) {
   }
 
   isUserAuthenticated(): any {
@@ -24,13 +24,8 @@ export class AppComponent {
     this.router.navigateByUrl("/login");
   }
 
-  getUserInfoFromToken(): UserJwt {
-    let token = localStorage.getItem("token")
-    let decodedToken = this.helper.decodeToken(token);
-    return {
-      userId: decodedToken.userId,
-      email: decodedToken.sub,
-      roles: decodedToken.roles
-    };
+  ngOnInit(): void {
+    let userInfoFromToken = this.userService.getUserInfoFromToken();
+    this.userId = userInfoFromToken.userId;
   }
 }

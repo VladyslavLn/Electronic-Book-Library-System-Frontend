@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../service/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
   }
 
@@ -32,6 +34,7 @@ export class RegisterComponent implements OnInit {
     ).subscribe(response => {
       if (response.id != null) {
         alert("User with email " + response.email + " successfully registered!")
+        this.router.navigateByUrl("/login")
       }
     })
   }

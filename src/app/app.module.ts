@@ -42,7 +42,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {CanActivateRoute} from "./guards/auth.guard";
 import { BookComponent } from './components/book/book.component';
 import { CreateBookComponent } from './components/create-book/create-book.component';
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatDialogTitle} from "@angular/material/dialog";
 import { UserListComponent } from './components/user-list/user-list.component';
 import {MatIcon} from "@angular/material/icon";
@@ -58,7 +58,9 @@ import { UserComponent } from './components/user/user.component';
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatList, MatListItem} from "@angular/material/list";
-import {MatLine} from "@angular/material/core";
+import {MatLine, MatOption} from "@angular/material/core";
+import {MatDivider} from "@angular/material/divider";
+import {MatSelect} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -119,7 +121,11 @@ import {MatLine} from "@angular/material/core";
     MatInput,
     MatList,
     MatListItem,
-    MatLine
+    MatLine,
+    MatIconButton,
+    MatDivider,
+    MatOption,
+    MatSelect,
   ],
   providers: [
     CanActivateRoute,

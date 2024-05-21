@@ -11,6 +11,8 @@ import {ActivatedRoute} from "@angular/router";
 export class BookComponent implements OnInit {
   book: Book;
   bookCover: string | undefined;
+  reviewValue: string;
+  ratingValue: number;
 
   constructor(
     private bookService: BooksService,
@@ -56,4 +58,38 @@ export class BookComponent implements OnInit {
     return 'https://via.placeholder.com/150';
   }
 
+  addReviewAndRating(reviewValue: string, ratingValue: number) {
+    if (reviewValue) {
+      if (ratingValue) {
+        this.addReview(reviewValue);
+        this.addRating(ratingValue);
+      } else {
+        alert('Please add a rating');
+      }
+    }
+  }
+
+  downloadBookFile() {
+    this.bookService.downloadBookFile(this.book.id)
+      .subscribe((response: any) => {
+        console.log(response.headers);
+        let filename = 'unknown';
+        let contentDisposition = response.headers.get('content-disposition');
+        if (contentDisposition) {
+          const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+          let matches = filenameRegex.exec(contentDisposition);
+          if (matches != null && matches[1]) {
+            filename = matches[1].replace(/['"]/g, '');
+          }
+        }
+        console.log(contentDisposition);
+        let blob = new Blob([response.body], { type: response.type });
+        let url = window.URL.createObjectURL(blob);
+        let link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.click();
+        window.URL.revokeObjectURL(url);
+      });
+  }
 }
