@@ -32,7 +32,10 @@ export class UserService {
   }
 
   getUserInfoFromToken(): UserJwt {
-    let token = localStorage.getItem("token")
+    let token = localStorage.getItem("token");
+    if (!token) {
+      return null;
+    }
     let decodedToken = this.helper.decodeToken(token);
     return {
       userId: decodedToken.userId,

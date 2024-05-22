@@ -11,7 +11,7 @@ export class CanActivateRoute {
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    return this.authService.checkTokenValidity().pipe(
+    return this.authService.currentAuthStatus.pipe(
       switchMap((isAuthenticated) => {
         const isLoginPath = route.routeConfig?.path?.includes('login') || route.routeConfig?.path.includes('register');
         if (isAuthenticated && isLoginPath) {

@@ -37,12 +37,10 @@ export class BooksService {
   }
 
   addReviewToBook(bookReview: CreateBookReview, id: number): Observable<BookReview> {
-    console.log(bookReview);
     return this.http.post<BookReview>(`http://localhost:8080/api/v1/books/${id}/review`, bookReview )
   }
 
   addRatingToBook(bookRating: CreateBookRating, id: number): Observable<BookRating> {
-    console.log(bookRating)
     return this.http.post<BookRating>(`http://localhost:8080/api/v1/books/${id}/rating`, bookRating)
   }
 

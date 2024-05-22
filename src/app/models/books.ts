@@ -6,8 +6,7 @@ export interface Book {
   readonly title: string,
   readonly language: string,
   readonly fileKey: string,
-  readonly reviews: BookReview[],
-  readonly ratings: BookRating[],
+  readonly reviewAndRatings: BookReviewsAndRatings[],
   readonly averageRating: number
   readonly cover: Array<string>
 }
@@ -24,20 +23,25 @@ export interface UpdateBook {
   readonly language: string
 }
 
+export interface BookReviewsAndRatings {
+  readonly user: User,
+  readonly bookReview: BookReview,
+  readonly bookRating: BookRating
+}
 export interface BookReview {
   readonly id: number,
   readonly reviewContent: string,
   readonly user: User
 }
 
-export interface CreateBookReview {
-  readonly content: string,
-}
-
 export interface BookRating {
   readonly id: number,
   readonly ratingValue: number,
   readonly user: User
+}
+
+export interface CreateBookReview {
+  readonly content: string,
 }
 
 export interface CreateBookRating {

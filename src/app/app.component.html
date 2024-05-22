@@ -3,17 +3,17 @@
     <a class="navbar-brand" href="/home">Library</a>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" *ngIf="isUserAuthenticated()" routerLink="/user/{{ userId }}">My profile</a>
+        <a class="nav-link" *ngIf="isAuthenticated" routerLink="/user/{{ userId }}">My profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="isUserAuthenticated()" routerLink="/book/create">Create book</a>
+        <a class="nav-link" *ngIf="isAuthenticated" routerLink="/book/create">Create book</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="isUserAuthenticated()" routerLink="/users">User list</a>
+        <a class="nav-link" *ngIf="isAuthenticated && isAdmin" routerLink="/users">User list</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="!isUserAuthenticated()" routerLink="/login">Login</a>
-        <a class="nav-link" *ngIf="isUserAuthenticated()" (click)="logoutUser()">Logout</a>
+        <a class="nav-link" *ngIf="!isAuthenticated" routerLink="/login">Login</a>
+        <a class="nav-link" *ngIf="isAuthenticated" (click)="logoutUser()" style="cursor: pointer">Logout</a>
       </li>
     </ul>
   </div>

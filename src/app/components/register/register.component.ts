@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../service/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {WarningDialogComponent} from "../warning-dialog/warning-dialog.component";
 
 @Component({
   selector: 'app-register',
@@ -14,7 +16,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
   }
 
@@ -28,13 +31,14 @@ export class RegisterComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.registerForm.value);
     this.authService.register(
       this.registerForm.value
     ).subscribe(response => {
       if (response.id != null) {
-        alert("User with email " + response.email + " successfully registered!")
-        this.router.navigateByUrl("/login")
+        this.dialog.open(WarningDialogComponent, {
+          data: 'User with email ' + response.email + ' successfully registered!',
+        });
+        this.router.navigateByUrl("/login");
       }
     })
   }

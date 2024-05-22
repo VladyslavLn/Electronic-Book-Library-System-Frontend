@@ -21,30 +21,28 @@
         </div>
         <mat-divider></mat-divider>
 
-        <p><strong>Reviews:</strong></p>
-        <mat-list *ngFor="let review of book.reviews">
-          <mat-list-item>User: {{ review.user.firstName }} {{ review.user.lastName }}</mat-list-item>
-          <mat-list-item>Review: {{ review.reviewContent }}</mat-list-item>
+        <p><strong>Reviews And Ratings:</strong></p>
+        <mat-list *ngFor="let reviewAndRating of book.reviewAndRatings">
+          <mat-list-item style="height: 100%">
+            <div>
+              User: {{ reviewAndRating.user.firstName }} {{ reviewAndRating.user.lastName }}
+            </div>
+            <div>
+              Review: {{ reviewAndRating.bookReview.reviewContent }}
+            </div>
+            <div class="user-rating">
+              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                <i class="fa-star" [ngClass]="star <= reviewAndRating.bookRating.ratingValue ? 'fas' : 'far'"></i>
+              </ng-container>
+            </div>
+          </mat-list-item>
         </mat-list>
-
-        <mat-divider></mat-divider>
-
-        <p><strong>Ratings</strong></p>
-        <div *ngFor="let rating of book.ratings">
-          <div class="user-rating">
-            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-              <i class="fa-star" [ngClass]="star <= rating.ratingValue ? 'fas' : 'far'"></i>
-            </ng-container>
-            <p class="rating-author">User: {{ rating.user.firstName }} {{ rating.user.lastName }}</p>
-          </div>
-        </div>
-
       </mat-card-content>
     </div>
   </div>
 
   <div class="card-actions">
-    <form class="review-form" #reviewForm="ngForm">
+    <form class="review-form">
       <mat-form-field class="review-field">
         <textarea [(ngModel)]="reviewValue" name="review" matInput placeholder="Your review"></textarea>
       </mat-form-field>

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {BooksService} from "../../service/books.service";
 import {Book, CreateBookRating, CreateBookReview} from "../../models/books";
 import {ActivatedRoute} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {WarningDialogComponent} from "../warning-dialog/warning-dialog.component";
 
 @Component({
   selector: 'app-book',
@@ -16,11 +18,12 @@ export class BookComponent implements OnInit {
 
   constructor(
     private bookService: BooksService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.loadBookData()
+    this.loadBookData();
   }
 
   loadBookData(): void {
@@ -64,7 +67,9 @@ export class BookComponent implements OnInit {
         this.addReview(reviewValue);
         this.addRating(ratingValue);
       } else {
-        alert('Please add a rating');
+        this.dialog.open(WarningDialogComponent, {
+          data: 'Please add a rating',
+        });
       }
     }
   }
@@ -72,7 +77,6 @@ export class BookComponent implements OnInit {
   downloadBookFile() {
     this.bookService.downloadBookFile(this.book.id)
       .subscribe((response: any) => {
-        console.log(response.headers);
         let filename = 'unknown';
         let contentDisposition = response.headers.get('content-disposition');
         if (contentDisposition) {
@@ -82,7 +86,6 @@ export class BookComponent implements OnInit {
             filename = matches[1].replace(/['"]/g, '');
           }
         }
-        console.log(contentDisposition);
         let blob = new Blob([response.body], { type: response.type });
         let url = window.URL.createObjectURL(blob);
         let link = document.createElement('a');

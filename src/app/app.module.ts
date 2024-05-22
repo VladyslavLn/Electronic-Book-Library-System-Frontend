@@ -43,7 +43,7 @@ import {CanActivateRoute} from "./guards/auth.guard";
 import { BookComponent } from './components/book/book.component';
 import { CreateBookComponent } from './components/create-book/create-book.component';
 import {MatButton, MatIconButton} from "@angular/material/button";
-import {MatDialogTitle} from "@angular/material/dialog";
+import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import { UserListComponent } from './components/user-list/user-list.component';
 import {MatIcon} from "@angular/material/icon";
 import {
@@ -61,6 +61,7 @@ import {MatList, MatListItem} from "@angular/material/list";
 import {MatLine, MatOption} from "@angular/material/core";
 import {MatDivider} from "@angular/material/divider";
 import {MatSelect} from "@angular/material/select";
+import { WarningDialogModule } from './modules/warning-dialog.module';
 
 @NgModule({
   declarations: [
@@ -126,6 +127,11 @@ import {MatSelect} from "@angular/material/select";
     MatDivider,
     MatOption,
     MatSelect,
+    MatPaginator,
+    WarningDialogModule,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
   ],
   providers: [
     CanActivateRoute,
