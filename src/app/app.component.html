@@ -6,7 +6,10 @@
         <a class="nav-link" *ngIf="isAuthenticated" routerLink="/user/{{ userId }}">My profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="isAuthenticated" routerLink="/book/create">Create book</a>
+        <a class="nav-link" *ngIf="isAuthenticated" routerLink="/my-books">My books</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="isAuthenticated" routerLink="/book/create">Upload book</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" *ngIf="isAuthenticated && isAdmin" routerLink="/users">User list</a>

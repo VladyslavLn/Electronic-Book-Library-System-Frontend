@@ -13,16 +13,16 @@
         <mat-divider></mat-divider>
 
         <p><strong>Average Rating:</strong></p>
-        <div class="user-rating">
+        <div class="user-rating avg-rating">
           <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
             <i class="fa-star" [ngClass]="star <= book.averageRating ? 'fas' : 'far'"></i>
           </ng-container>
-          <p>{{ book.averageRating }} Stars</p>
         </div>
         <mat-divider></mat-divider>
 
         <p><strong>Reviews And Ratings:</strong></p>
         <mat-list *ngFor="let reviewAndRating of book.reviewAndRatings">
+          <div class="item">
           <mat-list-item style="height: 100%">
             <div>
               User: {{ reviewAndRating.user.firstName }} {{ reviewAndRating.user.lastName }}
@@ -36,6 +36,7 @@
               </ng-container>
             </div>
           </mat-list-item>
+          </div>
         </mat-list>
       </mat-card-content>
     </div>

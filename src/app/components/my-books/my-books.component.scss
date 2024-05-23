@@ -1,0 +1,62 @@
+.fas.fa-star {
+  color: #ffc107;
+}
+
+i.fa-star {
+  color: #888;
+}
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 16px;
+  margin: 16px;
+}
+
+.book-card {
+  flex-basis: 24%;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: row;
+}
+
+.book-card:hover{
+  background-color: #adcee5;
+}
+
+.book-card img {
+  max-width: 30%;
+  height: auto;
+  margin-right: 20px;
+}
+
+.card-content {
+  display: flex;
+}
+
+.book-card-img {
+  max-width: 30%;
+  height: auto;
+  margin-right: 20px;
+}
+
+.book-card mat-card-header,
+.book-card mat-card-content {
+  flex: 1;
+}
+
+.centered-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.centered-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

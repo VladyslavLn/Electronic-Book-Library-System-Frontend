@@ -1,39 +1,28 @@
 import {Component, OnInit} from '@angular/core';
 import {PageEvent} from "@angular/material/paginator";
-import {BooksService} from "../../service/books.service";
-import {Book} from "../../models/books";
 import {ResponseWithPagination} from "../../models/pagination";
-import {AuthService} from "../../service/auth.service";
-import {UserService} from "../../service/user.service";
-
+import {Book} from "../../models/books";
+import {BooksService} from "../../service/books.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  selector: 'app-my-books',
+  templateUrl: './my-books.component.html',
+  styleUrl: './my-books.component.scss'
 })
-export class HomeComponent implements OnInit{
+export class MyBooksComponent implements OnInit{
   books: Book[] = [];
   pageEvent: PageEvent;
   length: number;
   pageSize: number;
   pageIndex: number;
-  isAdmin: boolean;
   showModal = false;
   selectedBookId: number;
 
-  constructor(private bookService: BooksService,
-              private authService: AuthService,
-              private userService: UserService) {
-    this.authService.currentAdminStatus.subscribe(status => this.isAdmin = status);
+  constructor(private bookService: BooksService) {
   }
 
   ngOnInit(): void {
-    this.loadBooks();
-    let userInfoFromToken = this.userService.getUserInfoFromToken();
-    if (userInfoFromToken != null) {
-      this.isAdmin = this.userService.getUserInfoFromToken().roles.includes('ADMIN');
-    }
+    this.loadMyBooks();
   }
 
   handlePageEvent(e: PageEvent) {
@@ -42,7 +31,7 @@ export class HomeComponent implements OnInit{
     this.bookService.getALlBooksWithPagination(e.pageIndex, e.pageSize)
       .subscribe((response: ResponseWithPagination<Book>) => {
         this.books = response.content;
-    })
+      });
   }
 
   getBookCover(book: Book): string {
@@ -50,6 +39,13 @@ export class HomeComponent implements OnInit{
       return 'data:image/jpg;base64,' + book.cover;
     }
     return 'https://via.placeholder.com/150';
+  }
+
+  deleteBook(bookId: number) {
+    this.bookService.deleteBookById(bookId).subscribe((resp) => {
+      this.showModal = false;
+      this.loadMyBooks();
+    });
   }
 
   openModal(id: number): void {
@@ -61,15 +57,8 @@ export class HomeComponent implements OnInit{
     this.showModal = false;
   }
 
-  deleteBook(bookId: number) {
-    this.bookService.deleteBookById(bookId).subscribe((resp) => {
-      this.showModal = false;
-      this.loadBooks();
-    });
-  }
-
-  private loadBooks() {
-    this.bookService.getALlBooksWithPagination(0, 16)
+  private loadMyBooks() {
+    this.bookService.getMyBooksWithPagination(0, 16)
       .subscribe((response: ResponseWithPagination<Book>) => {
         this.books = response.content;
         this.length = response.totalElements;

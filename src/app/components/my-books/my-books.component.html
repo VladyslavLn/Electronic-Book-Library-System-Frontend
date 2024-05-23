@@ -15,7 +15,7 @@
             </ng-container>
           </p>
         </mat-card-content>
-        <mat-card-actions *ngIf="isAdmin" align="end">
+        <mat-card-actions align="end">
           <button mat-raised-button color="warn" (click)="openModal(book.id); $event.stopPropagation();">Delete</button>
         </mat-card-actions>
       </div>
@@ -51,8 +51,8 @@
         <p>Do you really want to delete this book?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
-        <button type="button" class="btn btn-danger" (click)="deleteBook(selectedBookId)">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Отмена</button>
+        <button type="button" class="btn btn-danger" (click)="deleteBook(selectedBookId)">Удалить</button>
       </div>
     </div>
   </div>

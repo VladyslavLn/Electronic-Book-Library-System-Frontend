@@ -28,12 +28,16 @@ export class BooksService {
       .get<ResponseWithPagination<Book>>(`http://localhost:8080/api/v1/books?page=${pageIndex}&size=${pageSize}`);
   }
 
+  getMyBooksWithPagination(pageIndex: number, pageSize: number): Observable<ResponseWithPagination<Book>> {
+    return this.http.get<ResponseWithPagination<Book>>(`http://localhost:8080/api/v1/books/my-books?page=${pageIndex}&size=${pageSize}`);
+  }
+
   getBookById(id: number): Observable<Book> {
     return this.http.get<Book>(`http://localhost:8080/api/v1/books/${id}`);
   }
 
-  deleteBookById(id: number) {
-    this.http.delete(`http://localhost:8080/api/v1/books/${id}`);
+  deleteBookById(id: number): Observable<object> {
+    return this.http.delete(`http://localhost:8080/api/v1/books/${id}`);
   }
 
   addReviewToBook(bookReview: CreateBookReview, id: number): Observable<BookReview> {
