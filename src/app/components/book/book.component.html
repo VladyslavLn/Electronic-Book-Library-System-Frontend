@@ -2,7 +2,8 @@
   <mat-card-header>
     <mat-card-title>{{ book.title }}</mat-card-title>
     <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
-    <button (click)="downloadBookFile()" mat-raised-button color="primary" class="downloadButton">Download Book</button>
+    <button *ngIf="isBookRelativeToUser(book) || isAdmin" (click)="openEditBookDialog()" mat-raised-button color="primary" class="edit-button">Edit Book</button>
+    <button (click)="downloadBookFile()" mat-raised-button color="primary" class="download-button">Download Book</button>
   </mat-card-header>
 
   <div class="card-content">
@@ -34,6 +35,7 @@
               <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
                 <i class="fa-star" [ngClass]="star <= reviewAndRating.bookRating.ratingValue ? 'fas' : 'far'"></i>
               </ng-container>
+              <mat-divider></mat-divider>
             </div>
           </mat-list-item>
           </div>

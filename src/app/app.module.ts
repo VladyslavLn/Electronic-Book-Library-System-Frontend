@@ -63,6 +63,7 @@ import {MatDivider} from "@angular/material/divider";
 import {MatSelect} from "@angular/material/select";
 import { WarningDialogModule } from './modules/warning-dialog.module';
 import { MyBooksComponent } from './components/my-books/my-books.component';
+import { EditBookComponent } from './components/edit-book/edit-book.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { MyBooksComponent } from './components/my-books/my-books.component';
     CreateBookComponent,
     UserListComponent,
     UserComponent,
-    MyBooksComponent
+    MyBooksComponent,
+    EditBookComponent
   ],
   imports: [
     BrowserModule,

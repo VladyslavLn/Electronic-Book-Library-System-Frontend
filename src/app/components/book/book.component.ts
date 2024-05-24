@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {BooksService} from "../../service/books.service";
-import {Book, CreateBookRating, CreateBookReview} from "../../models/books";
+import {Book, CreateBookRating, CreateBookReview, UpdateBook} from "../../models/books";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {WarningDialogComponent} from "../warning-dialog/warning-dialog.component";
+import {EditBookComponent} from "../edit-book/edit-book.component";
+import {UserService} from "../../service/user.service";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-book',
@@ -15,15 +18,24 @@ export class BookComponent implements OnInit {
   bookCover: string | undefined;
   reviewValue: string;
   ratingValue: number;
+  isAdmin: boolean;
 
   constructor(
     private bookService: BooksService,
+    private userService: UserService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private dialog: MatDialog
-  ) {}
+  ) {
+    this.authService.currentAdminStatus.subscribe(status => this.isAdmin = status);
+  }
 
   ngOnInit(): void {
     this.loadBookData();
+    let userInfoFromToken = this.userService.getUserInfoFromToken();
+    if (userInfoFromToken != null) {
+      this.isAdmin = this.userService.getUserInfoFromToken().roles.includes('ADMIN');
+    }
   }
 
   loadBookData(): void {
@@ -62,15 +74,22 @@ export class BookComponent implements OnInit {
   }
 
   addReviewAndRating(reviewValue: string, ratingValue: number) {
-    if (reviewValue) {
-      if (ratingValue) {
-        this.addReview(reviewValue);
-        this.addRating(ratingValue);
-      } else {
-        this.dialog.open(WarningDialogComponent, {
-          data: 'Please add a rating',
-        });
-      }
+    if (reviewValue && ratingValue) {
+      this.addReview(reviewValue);
+      this.addRating(ratingValue);
+      this.dialog.open(WarningDialogComponent, {
+        data: 'Review and rating successfully added !',
+      });
+    }
+    if (reviewValue && !ratingValue) {
+      this.dialog.open(WarningDialogComponent, {
+        data: 'Please add a rating',
+      });
+    }
+    if (ratingValue && !reviewValue) {
+      this.dialog.open(WarningDialogComponent, {
+        data: 'Please add a review',
+      });
     }
   }
 
@@ -86,7 +105,7 @@ export class BookComponent implements OnInit {
             filename = matches[1].replace(/['"]/g, '');
           }
         }
-        let blob = new Blob([response.body], { type: response.type });
+        let blob = new Blob([response.body], {type: response.type});
         let url = window.URL.createObjectURL(blob);
         let link = document.createElement('a');
         link.href = url;
@@ -94,5 +113,35 @@ export class BookComponent implements OnInit {
         link.click();
         window.URL.revokeObjectURL(url);
       });
+  }
+
+  openEditBookDialog(): void {
+    const dialogRef = this.dialog.open(EditBookComponent, {
+      data: {
+        book: this.book,
+        dialogTitle: 'Edit Book',
+        dialogText: 'Please edit the book information and press submit to save changes.'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateBook(result);
+      }
+    });
+  }
+
+  updateBook(updatedBook: UpdateBook): void {
+    this.bookService.updateBook(this.book.id, updatedBook).subscribe(() => {
+      this.loadBookData();
+    });
+  }
+
+  isBookRelativeToUser(book: Book): boolean {
+    let userInfo = this.userService.getUserInfoFromToken();
+    if (userInfo) {
+      return userInfo.userId === book.user.id;
+    }
+    return false;
   }
 }

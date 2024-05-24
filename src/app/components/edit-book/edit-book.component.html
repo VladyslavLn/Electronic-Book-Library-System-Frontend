@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Edit Book</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field class="full-width">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Author</mat-label>
+    <input matInput formControlName="author">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Language</mat-label>
+    <input matInput formControlName="language">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="save()">Save</button>
+</mat-dialog-actions>

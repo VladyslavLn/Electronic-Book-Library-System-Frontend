@@ -7,8 +7,9 @@ export interface Book {
   readonly language: string,
   readonly fileKey: string,
   readonly reviewAndRatings: BookReviewsAndRatings[],
-  readonly averageRating: number
-  readonly cover: Array<string>
+  readonly averageRating: number,
+  readonly cover: Array<string>,
+  readonly user: User
 }
 
 export interface CreateBook {

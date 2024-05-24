@@ -1,7 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Book, BookRating, BookReview, CreateBook, CreateBookRating, CreateBookReview} from "../models/books";
+import {
+  Book,
+  BookRating,
+  BookReview,
+  CreateBook,
+  CreateBookRating,
+  CreateBookReview,
+  UpdateBook
+} from "../models/books";
 import {ResponseWithPagination} from "../models/pagination";
 
 @Injectable({
@@ -21,6 +29,10 @@ export class BooksService {
     formData.append('file', file);
 
     return this.http.post('http://localhost:8080/api/v1/books', formData);
+  }
+
+  updateBook(id: number, updatedBook: UpdateBook): Observable<Book> {
+    return this.http.put<Book>(`http://localhost:8080/api/v1/books/${id}`, updatedBook);
   }
 
   getALlBooksWithPagination(pageIndex: number, pageSize: number): Observable<ResponseWithPagination<Book>> {
